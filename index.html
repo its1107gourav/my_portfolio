@@ -1,0 +1,1597 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gaurav Patidar — Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0f1a2b;
+      --muted: #9ca3af;
+      --accent1: #7b61ff; /* Purple */
+      --accent2: #50e3ff; /* Cyan/Blue */
+      --glass: rgba(255, 255, 255, 0.08);
+      --gap: 18px;
+      --radius: 14px;
+      --ring-size: 14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background-color: var(--bg);
+      color: #e6eef8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.45;
+      padding-top: 72px;
+      overflow-x: hidden;
+      /* Removed custom cursor setting to restore default */
+    }
+
+    /* --- CSS Dragon Cursor --- */
+    /* REMOVED ALL DRAGON CURSOR CSS */
+    
+    #main-bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    /* --- REMOVED ALL PLANET CSS --- */
+    
+    .site-header {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      padding: 10px 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+      backdrop-filter: blur(8px);
+      z-index: 60;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .logo { 
+      font-weight: 700; 
+      letter-spacing: .4px; 
+      display: inline-flex; 
+      align-items: center; 
+    }
+    .logo-dot { color: var(--accent2); margin-left: 6px; }
+    .shortcuts { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .sc-btn,
+    .btn {
+      position: relative;
+      padding: 8px 12px;
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-weight: 600;
+      border-radius: 10px;
+      /* Removed custom cursor setting */
+      text-decoration: none;
+      outline: none;
+      box-shadow: 0 0 0 transparent; /* Initial state */
+      transition: box-shadow .3s ease, background-color .2s ease, transform .2s ease;
+      /* Ensuring button is sharp/clear by default */
+    }
+    
+    /* MODIFIED: Bright Shadow and Popping effect for all buttons */
+    .sc-btn:hover,
+    .sc-btn:focus-visible,
+    .btn:hover,
+    .btn:focus-visible {
+      /* Increased intensity for a strong glow effect (shadow behind) */
+      box-shadow: 0 0 20px rgba(123, 97, 255, 0.8), 0 0 40px rgba(80, 227, 255, 0.5); 
+      /* "Popping up" effect */
+      transform: translateY(-2px) scale(1.02); 
+    }
+
+    .sc-btn {
+      background: var(--glass);
+      /* REMOVED BORDER to keep it sharp and clean: border: 1px solid rgba(255, 255, 255, 0.1); */
+    }
+    .sc-btn:hover { background-color: rgba(255, 255, 255, 0.12); } /* Slight background change for feedback */
+    .sc-btn::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 12px;
+      z-index: -1;
+      background: conic-gradient(from 0deg, rgba(255, 255, 255, 0.04), transparent 30%, rgba(123, 97, 255, 0.12));
+      -webkit-mask: linear-gradient(#fff, #fff);
+      filter: blur(6px);
+      opacity: 1;
+      transition: transform .6s linear;
+      animation: spinBorder 6s linear infinite;
+    }
+    .sc-btn:hover::before { transform: scale(1.04); }
+    .btn.primary {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: #021226;
+      border: none;
+    }
+    .btn.outline { background: transparent; border: 1px solid rgba(255, 255, 255, 0.08); }
+    /* ... rest of existing CSS ... */
+    
+    .hero {
+      padding: 56px 20px;
+      min-height: 66vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-inner {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      max-width: 1100px;
+      width: 100%;
+      padding: 30px;
+    }
+    .profile-area {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 260px;
+      flex-shrink: 0;
+    }
+    .name-shine {
+      transform: translateX(-30px);
+      font-weight: 700;
+      font-size: 18px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+      color: var(--accent2);
+      text-shadow: 0 0 8px rgba(80, 227, 255, 0.2);
+      animation: shimmer 3s linear infinite;
+    }
+    .portrait-ring {
+      --size: 240px;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--ring-size);
+      position: relative;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    }
+    .portrait-ring::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      padding: var(--ring-size);
+      /* Uses Purple, Cyan, and Pink/Red (already compliant) */
+      background: conic-gradient(from 0deg, var(--accent1), var(--accent2), #ff9a7b, var(--accent1)); 
+      -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 18px), #000 0);
+      mask: radial-gradient(farthest-side, #0000 calc(100% - 18px), #000 0);
+      animation: rotateColors 4s linear infinite;
+      z-index: 0;
+      filter: blur(6px);
+      transform-origin: center;
+    }
+    .portrait {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 10px 30px rgba(7, 17, 36, 0.6);
+      transform: translateZ(0);
+    }
+    .hero-text { flex: 1; min-width: 280px; }
+    .hero-text h1 { font-size: 34px; margin: 0 0 8px; }
+    .accent {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .type-bg { font-family: monospace; font-size: 14px; color: var(--muted); margin: 6px 0; height: 20px; }
+    #typewriter { text-shadow: 0 0 8px rgba(80, 227, 255, 0.3); }
+    .hero-ctas { margin-top: 16px; display: flex; gap: 12px; }
+    .card.section {
+      background: transparent;
+      border: none;
+      backdrop-filter: none;
+      padding: 22px;
+      margin: 18px auto;
+      max-width: 1000px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all .6s ease;
+    }
+    .card.section.visible { opacity: 1; transform: none; }
+    h2,
+    .hero-desc,
+    #about p { text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); }
+    .education-ladder { position: relative; padding-top: 10px; padding-bottom: 40px; }
+    .education-step {
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 16px 20px;
+      width: 45%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      position: relative;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .education-step:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      border-color: var(--accent2);
+    }
+    .education-step:not(:first-child) { margin-top: -35px; }
+    .education-step:nth-child(even) { margin-left: auto; }
+    .education-step:nth-child(odd) { margin-right: auto; }
+    .education-step h3 { margin: 0 0 4px; color: var(--accent2); font-size: 1.1rem; }
+    .education-step p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .education-step .year {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      font-weight: 600;
+      color: #ff8fab;
+      font-size: .9rem;
+    }
+    #skills.card.section { padding: 32px; }
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(100px, auto);
+      gap: 16px;
+    }
+    .skill-block {
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+      transition: all .2s ease;
+    }
+    .skill-block:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent2);
+      z-index: 10;
+    }
+
+    /* --- SKILL ICON CSS START --- */
+    
+    /* Remove SVG rule */
+    .skill-block svg { display: none; } 
+
+    /* General skill icon container */
+    .skill-block .skill-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 5px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent2);
+      text-shadow: 0 0 8px rgba(80, 227, 255, 0.4);
+    }
+    
+    /* Base animation for a pulse/glow */
+    @keyframes skill-pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+    
+    /* --- NEW ANIMATIONS FOR HYPER-REALISM --- */
+
+    /* 1. HTML ICON (Hyper-realistic 3D Tilt/Flow & Code Stream) */
+    @keyframes html-tilt {
+      0% { transform: rotateX(0deg) rotateY(0deg) translateY(0px); }
+      50% { transform: rotateX(10deg) rotateY(3deg) translateY(-3px); }
+      100% { transform: rotateX(0deg) rotateY(0deg) translateY(0px); }
+    }
+    @keyframes code-stream {
+        0% { transform: translateY(0); opacity: 0; }
+        10% { opacity: 1; }
+        100% { transform: translateY(40px); opacity: 0; }
+    }
+
+    [data-skill="HTML"] .skill-icon {
+      animation: html-tilt 4s infinite alternate ease-in-out;
+      transform-style: preserve-3d; /* Enable 3D rotation */
+      perspective: 1000px;
+      overflow: hidden; /* Contains the code stream */
+      border-radius: 4px;
+      border: 1px solid rgba(80, 227, 255, 0.4);
+      background: rgba(0, 0, 0, 0.2);
+    }
+    [data-skill="HTML"] .skill-icon::before,
+    [data-skill="HTML"] .skill-icon::after {
+      content: '';
+      position: absolute;
+      border-left: 4px solid var(--accent2);
+      border-right: 4px solid var(--accent2);
+      width: 20px;
+      height: 30px;
+      top: 5px;
+      box-shadow: 0 0 15px rgba(80, 227, 255, 0.5) inset, 0 0 10px rgba(80, 227, 255, 0.8);
+      transform-origin: center;
+    }
+    [data-skill="HTML"] .skill-icon::before {
+      transform: translateX(-8px) skewY(-20deg) translateZ(5px); /* Added Z depth */
+    }
+    [data-skill="HTML"] .skill-icon::after {
+      transform: translateX(8px) skewY(20deg) translateZ(5px); /* Added Z depth */
+    }
+    /* Code Stream Element */
+    [data-skill="HTML"] .skill-icon > .code-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 154, 123, 0.7); /* HTML Orange/Red color */
+        box-shadow: 0 0 5px rgba(255, 154, 123, 1);
+        animation: code-stream 3s infinite linear;
+    }
+    [data-skill="HTML"] .skill-icon > .code-line:nth-child(2) { animation-delay: 1s; }
+    [data-skill="HTML"] .skill-icon > .code-line:nth-child(3) { animation-delay: 2s; }
+    
+
+    /* 2. CSS ICON (Keep current rotation) */
+    [data-skill="CSS"] .skill-icon {
+      border: 4px solid var(--accent2);
+      box-shadow: 0 0 10px rgba(80, 227, 255, 0.6);
+      animation: css-rotate 4s infinite linear;
+    }
+    @keyframes css-rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 3. JavaScript ICON (Hyper-realistic AST Engine) */
+    @keyframes js-hyper-glow {
+      0%, 100% { box-shadow: 0 0 12px #f7df1e, 0 0 20px #f7df1e inset; border-color: #f7df1e; }
+      50% { box-shadow: 0 0 25px #f7df1e, 0 0 40px #fff inset; border-color: #fff; }
+    }
+    @keyframes js-ast-flow {
+      from { background-position: 0 0; }
+      to { background-position: -200% 100%; }
+    }
+    @keyframes js-text-shimmer {
+      0% { text-shadow: 0 0 10px rgba(247, 223, 30, 0.7); opacity: 0.8; }
+      50% { text-shadow: 0 0 20px rgba(247, 223, 30, 1), 0 0 30px #fff; opacity: 1; }
+      100% { text-shadow: 0 0 10px rgba(247, 223, 30, 0.7); opacity: 0.8; }
+    }
+    @keyframes js-caret-blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    [data-skill="JavaScript"] .skill-icon {
+      background: #111;
+      border: 2px solid #f7df1e;
+      border-radius: 4px;
+      overflow: hidden;
+      animation: js-hyper-glow 2.5s infinite ease-in-out;
+    }
+    /* Blinking Caret */
+    [data-skill="JavaScript"] .skill-icon::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      width: 3px;
+      height: 12px;
+      background: #f7df1e;
+      box-shadow: 0 0 5px #f7df1e;
+      animation: js-caret-blink 1.2s infinite;
+      z-index: 2;
+    }
+    /* Animated "JS" */
+    [data-skill="JavaScript"] .skill-icon::after {
+      content: 'JS';
+      position: absolute;
+      color: #f7df1e;
+      font-size: 38px;
+      font-weight: 900;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      z-index: 1;
+      animation: js-text-shimmer 3s infinite ease-in-out;
+    }
+    /* Flowing AST Background */
+    [data-skill="JavaScript"] .skill-icon > .binary-bit {
+      position: absolute;
+      width: 200%; height: 100%;
+      left: 0; top: 0;
+      background-image: 
+        linear-gradient(110deg, transparent 20%, rgba(80, 227, 255, 0.3) 50%, transparent 80%),
+        linear-gradient(-110deg, transparent 20%, rgba(255, 154, 123, 0.3) 50%, transparent 80%);
+      background-size: 100% 50%;
+      background-repeat: repeat;
+      animation: js-ast-flow 4s infinite linear;
+    }
+
+
+    /* 4. C ICON (Hyper-realistic Atomic Pointer) */
+    @keyframes c-scene-rotate {
+      from { transform: rotateX(10deg) rotateY(0deg); }
+      to { transform: rotateX(10deg) rotateY(360deg); }
+    }
+    @keyframes c-pointer-orbit {
+      0% { transform: rotateZ(0deg) translateX(25px) rotateZ(-0deg) rotateX(80deg); opacity: 0.8; }
+      50% { transform: rotateZ(180deg) translateX(25px) rotateZ(-180deg) rotateX(80deg); opacity: 1; }
+      100% { transform: rotateZ(360deg) translateX(25px) rotateZ(-360deg) rotateX(80deg); opacity: 0.8; }
+    }
+    @keyframes c-core-glow {
+      0% { box-shadow: 0 0 12px var(--accent2), 0 0 20px var(--accent2) inset; }
+      50% { box-shadow: 0 0 20px var(--accent2), 0 0 35px var(--accent2) inset; }
+      100% { box-shadow: 0 0 12px var(--accent2), 0 0 20px var(--accent2) inset; }
+    }
+    [data-skill="C"] .skill-icon {
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 400px;
+      background: radial-gradient(circle, #fff 10%, var(--accent2) 50%, transparent 70%);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: 
+        c-scene-rotate 12s infinite linear,
+        c-core-glow 2.5s infinite ease-in-out;
+    }
+    [data-skill="C"] .skill-icon::before,
+    [data-skill="C"] .skill-icon::after {
+      content: '*'; /* Using asterisk for "pointer" */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -12px 0 0 -5px; /* Adjust for centering */
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--accent1);
+      text-shadow: 0 0 8px var(--accent1), 0 0 15px #fff;
+      transform-style: preserve-3d;
+    }
+    [data-skill="C"] .skill-icon::before {
+      animation: c-pointer-orbit 4s infinite linear;
+    }
+    [data-skill="C"] .skill-icon::after {
+      transform: rotateY(90deg); /* Start on a different plane */
+      color: #ff9a7b; /* Different color for variety */
+      text-shadow: 0 0 8px #ff9a7b, 0 0 15px #fff;
+      animation: c-pointer-orbit 4s infinite linear -2s; /* Same animation, half-cycle delay */
+    }
+
+
+    /* 5. C++ ICON (Object Constructor/Destructor) */
+    @keyframes cpp-construct-scene {
+      from { transform: rotateY(0deg) rotateX(20deg) scale(0.9); }
+      to { transform: rotateY(360deg) rotateX(20deg) scale(0.9); }
+    }
+    @keyframes cpp-construct-face {
+      0%, 100% { opacity: 0; transform: var(--transform-from); }
+      20%, 80% { opacity: 0.7; transform: var(--transform-to); }
+    }
+    [data-skill="C++"] .skill-icon {
+      transform-style: preserve-3d;
+      perspective: 200px;
+      animation: cpp-construct-scene 8s infinite linear;
+    }
+    [data-skill="C++"] .skill-icon::before,
+    [data-skill="C++"] .skill-icon::after {
+      content: '++';
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      background: var(--accent2);
+      border: 1px solid #fff;
+      opacity: 0;
+      font-size: 16px;
+      color: #021226;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: cpp-construct-face 4s infinite ease-in-out;
+    }
+    [data-skill="C++"] .skill-icon::before {
+      --transform-from: rotateY(90deg) translateZ(20px) translateX(-20px);
+      --transform-to: rotateY(90deg) translateZ(14px);
+      background: var(--accent1);
+      animation-delay: 0s;
+    }
+    [data-skill="C++"] .skill-icon::after {
+      content: 'C';
+      font-size: 20px;
+      --transform-from: translateY(20px) rotateX(-90deg);
+      --transform-to: translateZ(14px);
+      animation-delay: -2s;
+    }
+
+    /* 6. Java ICON (JVM Engine) */
+    @keyframes jvm-pulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px #f05244; }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px #ff9a7b; }
+      100% { transform: scale(1); box-shadow: 0 0 10px #f05244; }
+    }
+    @keyframes jvm-steam-rise {
+      from { transform: translateY(0) scale(1); opacity: 0.8; }
+      to { transform: translateY(-20px) scale(0.5); opacity: 0; }
+    }
+    [data-skill="Java"] .skill-icon {
+      position: relative;
+      background: linear-gradient(#ddd, #aaa);
+      width: 20px;
+      height: 30px;
+      border-radius: 2px;
+      border: 1px solid #666;
+      animation: jvm-pulse 1.5s infinite ease-in-out;
+    }
+    [data-skill="Java"] .skill-icon::before {
+      content: 'J';
+      font-weight: 900;
+      color: #f05244;
+      text-shadow: 0 0 5px #fff;
+    }
+    [data-skill="Java"] .skill-icon::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      margin-left: -1px;
+      width: 2px;
+      height: 5px;
+      background: #fff;
+      box-shadow: 
+        -4px 2px 0 1px #fff,
+        5px -3px 0 0px #fff,
+        2px 4px 0 1px #fff;
+      opacity: 0;
+      animation: jvm-steam-rise 2s infinite linear;
+      animation-delay: 0.75s;
+    }
+
+    /* 7. Python ICON (No change requested, maintaining original slither) */
+    @keyframes python-slither-complex {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(3px, 3px) rotate(5deg); }
+      50% { transform: translate(0, 0) rotate(0deg); }
+      75% { transform: translate(-3px, -3px) rotate(-5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    @keyframes snake-blue-move {
+      0%, 100% { transform: translate(5px, 5px); }
+      50% { transform: translate(10px, 0); }
+    }
+    @keyframes snake-yellow-move {
+      0%, 100% { transform: translate(-5px, -5px); }
+      50% { transform: translate(-10px, 0); }
+    }
+    
+    [data-skill="Python"] .skill-icon {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      display: block;
+      animation: python-slither-complex 4s infinite ease-in-out;
+    }
+
+    [data-skill="Python"] .skill-icon::before,
+    [data-skill="Python"] .skill-icon::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 9px;
+    }
+
+    [data-skill="Python"] .skill-icon::before {
+      background-color: #306998; 
+      left: 0;
+      top: 0;
+      border-top-right-radius: 9px;
+      border-bottom-left-radius: 9px;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: 0;
+      z-index: 2;
+      box-shadow: 0 0 10px #306998; 
+      animation: snake-blue-move 4s infinite alternate ease-in-out;
+    }
+
+    [data-skill="Python"] .skill-icon::after {
+      background-color: #ffd43b; 
+      right: 0;
+      bottom: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 9px;
+      border-top-left-radius: 9px;
+      z-index: 1;
+      box-shadow: 0 0 10px #ffd43b;
+      animation: snake-yellow-move 4s infinite alternate ease-in-out;
+    }
+    
+    /* 8. ML (Machine Learning) ICON (Hyper-realistic Revolving Data Ring) */
+    @keyframes ml-rotate-sphere {
+        0% { transform: rotate(0deg) scale(1); }
+        100% { transform: rotate(360deg) scale(1); }
+    }
+    @keyframes node-pulse {
+        0% { transform: scale(1); box-shadow: 0 0 5px var(--accent2); }
+        50% { transform: scale(1.2); box-shadow: 0 0 15px var(--accent2), 0 0 5px rgba(255, 255, 255, 0.8); }
+        100% { transform: scale(1); box-shadow: 0 0 5px var(--accent2); }
+    }
+    
+    [data-skill="ML"] .skill-icon {
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 80px;
+      border-radius: 50%;
+      border: 1px solid rgba(123, 97, 255, 0.4);
+      animation: ml-rotate-sphere 6s infinite linear;
+    }
+    
+    /* Central core */
+    [data-skill="ML"] .skill-icon::before {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--accent1);
+      border-radius: 50%;
+      box-shadow: 0 0 15px var(--accent1);
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Revolving Ring of Nodes (Container) */
+    [data-skill="ML"] .skill-icon > .skill-ring {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      animation: ml-rotate-sphere 4s infinite linear reverse; /* Spin the ring faster and opposite */
+      transform-style: preserve-3d;
+      perspective: 50px;
+    }
+
+    /* Revolving Nodes (The data points) */
+    [data-skill="ML"] .skill-icon > .skill-ring > .node {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: var(--accent2);
+        border-radius: 50%;
+        animation: node-pulse 1.5s infinite ease-in-out;
+    }
+    [data-skill="ML"] .skill-icon > .skill-ring > .node:nth-child(1) { /* Top */
+        top: 0; left: 50%; transform: translate(-50%, -50%) translateZ(4px); 
+    }
+    [data-skill="ML"] .skill-icon > .skill-ring > .node:nth-child(2) { /* Bottom */
+        bottom: 0; left: 50%; transform: translate(-50%, 50%) translateZ(-4px); 
+        background: var(--accent1); animation-delay: 0.75s;
+    }
+    [data-skill="ML"] .skill-icon > .skill-ring > .node:nth-child(3) { /* Left */
+        top: 50%; left: 0; transform: translate(-50%, -50%) translateZ(0); 
+        animation-delay: 0.25s;
+    }
+    [data-skill="ML"] .skill-icon > .skill-ring > .node:nth-child(4) { /* Right */
+        top: 50%; right: 0; transform: translate(50%, -50%) translateZ(0); 
+        background: var(--accent1); animation-delay: 1s;
+    }
+
+
+    /* 9. Full Stack ICON (Hyper-realistic Energy Core) */
+    @keyframes fullstack-scene-rotate-hyper {
+      from { transform: rotateY(-20deg) rotateX(15deg) rotateZ(5deg); }
+      to { transform: rotateY(340deg) rotateX(15deg) rotateZ(5deg); }
+    }
+    @keyframes fullstack-layer-float {
+      0% { transform: translateZ(var(--tz)) translateY(0px) scale(1); }
+      50% { transform: translateZ(var(--tz)) translateY(-3px) scale(1.02); }
+      100% { transform: translateZ(var(--tz)) translateY(0px) scale(1); }
+    }
+    @keyframes fullstack-data-comet {
+      0% { opacity: 0; transform: translateY(-12px) scaleY(0.1) scaleX(0.2); }
+      30% { opacity: 1; transform: translateY(0) scaleY(1) scaleX(1); }
+      70% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(12px) scaleY(0.1) scaleX(0.2); }
+    }
+    @keyframes fullstack-core-pulse {
+      0% { transform: translate(-50%, -50%) scale(0.95); box-shadow: 0 0 15px #fff, 0 0 25px #fff; }
+      50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 25px #fff, 0 0 40px var(--accent1); }
+      100% { transform: translate(-50%, -50%) scale(0.95); box-shadow: 0 0 15px #fff, 0 0 25px #fff; }
+    }
+
+    [data-skill="Full Stack"] .skill-icon {
+      transform-style: preserve-3d;
+      perspective: 300px;
+      animation: fullstack-scene-rotate-hyper 15s infinite linear;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+    /* Central Energy Core */
+    [data-skill="Full Stack"] .skill-icon::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 8px; height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      animation: fullstack-core-pulse 2s infinite ease-in-out;
+      z-index: 10;
+    }
+    [data-skill="Full Stack"] .skill-icon > div {
+      position: relative;
+      width: 100%;
+      height: 8px;
+      border-radius: 99px;
+      transform-style: preserve-3d;
+      background: linear-gradient(90deg, var(--c1-t), var(--c1), var(--c2), var(--c2-t));
+      box-shadow: 0 0 12px var(--c1), inset 0 0 8px rgba(0,0,0,0.5);
+      animation: fullstack-layer-float 4s infinite alternate ease-in-out;
+    }
+    [data-skill="Full Stack"] .skill-icon > .layer-1 {
+      --tz: 10px; --c1: var(--accent2); --c2: #a1f3ff; --c1-t: rgba(80, 227, 255, 0); --c2-t: rgba(161, 243, 255, 0);
+      animation-delay: 0s;
+    }
+    [data-skill="Full Stack"] .skill-icon > .layer-2 {
+      --tz: 0px; --c1: var(--accent1); --c2: #a290ff; --c1-t: rgba(123, 97, 255, 0); --c2-t: rgba(162, 144, 255, 0);
+      animation-delay: -1.5s;
+    }
+    [data-skill="Full Stack"] .skill-icon > .layer-3 {
+      --tz: -10px; --c1: #ff9a7b; --c2: #ffb8a7; --c1-t: rgba(255, 154, 123, 0); --c2-t: rgba(255, 184, 167, 0);
+      animation-delay: -3s;
+    }
+    /* Data Comets */
+    [data-skill="Full Stack"] .skill-icon > div::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 20%;
+      width: 4px; height: 10px;
+      margin-top: -5px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 8px #fff, 0 0 12px var(--accent2);
+      opacity: 0;
+      animation: fullstack-data-comet 2.5s infinite linear;
+    }
+    [data-skill="Full Stack"] .skill-icon > .layer-1::after { animation-delay: 0.2s; background: var(--accent2); }
+    [data-skill="Full Stack"] .skill-icon > .layer-2::after { animation-delay: -1.5s; background: var(--accent1); }
+    [data-skill="Full Stack"] .skill-icon > .layer-3::after { animation-delay: -0.5s; background: #ff9a7b; left: 70%; animation-direction: reverse; }
+
+
+    /* 10. MERN Stack ICON (Hyper-realistic 3D Orbit) */
+    @keyframes mern-scene-wobble {
+        0% { transform: rotateY(-10deg) rotateX(20deg); }
+        50% { transform: rotateY(10deg) rotateX(15deg); }
+        100% { transform: rotateY(-10deg) rotateX(20deg); }
+    }
+    @keyframes mern-react-orbit {
+        from { transform: rotateY(0deg) translateX(35px) rotateY(-0deg) rotateX(20deg) scale(0.9); }
+        to   { transform: rotateY(360deg) translateX(35px) rotateY(-360deg) rotateX(20deg) scale(0.9); }
+    }
+    @keyframes mern-mongo-orbit {
+        from { transform: rotateX(0deg) translateY(32px) rotateX(-0deg) rotateY(-30deg) scale(0.8); }
+        to   { transform: rotateX(360deg) translateY(32px) rotateX(-360deg) rotateY(-30deg) scale(0.8); }
+    }
+    @keyframes mern-react-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* Node.js Hexagon (Main element & scene root) */
+    [data-skill="MERN Stack"] .skill-icon {
+        position: relative;
+        width: 30px;
+        height: 34px;
+        background-color: #68A063; /* Node.js green */
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        transform-style: preserve-3d;
+        perspective: 800px;
+        animation: mern-scene-wobble 10s infinite ease-in-out;
+        box-shadow: 0 0 15px #8CC84B, inset 0 0 10px rgba(0,0,0,0.3);
+    }
+    /* React Atom (Orbiting) */
+    [data-skill="MERN Stack"] .skill-icon::before {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 30px; height: 30px;
+        margin: -15px 0 0 -15px;
+        background: radial-gradient(circle, #61DAFB 3px, transparent 4px); /* Nucleus */
+        border: 2px solid rgba(97, 218, 251, 0.5);
+        border-radius: 50%;
+        box-shadow: 0 0 10px #61DAFB,
+                    /* The other two orbits */
+                    0 0 0 2px rgba(97, 218, 251, 0.5) inset;
+        transform-style: preserve-3d;
+        animation: mern-react-orbit 8s infinite linear, mern-react-spin 4s infinite linear reverse;
+    }
+    /* MongoDB Leaf (Orbiting) */
+    [data-skill="MERN Stack"] .skill-icon::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 20px; height: 24px;
+        margin: -12px 0 0 -10px;
+        background: #4DB33D; /* MongoDB green */
+        border-radius: 50% 0;
+        transform: rotate(-45deg);
+        box-shadow: 0 0 12px #A0D886;
+        animation: mern-mongo-orbit 10s infinite linear;
+        animation-delay: -2s; /* Stagger animations */
+    }
+
+
+    /* --- SKILL ICON CSS END --- */
+    
+    .skill-block span { font-weight: 600; color: var(--muted); font-size: .9rem; }
+    .skill-block[data-skill=HTML] { grid-column: span 1; grid-row: span 1; }
+    .skill-block[data-skill=CSS] { grid-column: span 1; grid-row: span 1; }
+    .skill-block[data-skill=JavaScript] { grid-column: span 2; grid-row: span 2; }
+    .skill-block[data-skill=C] { grid-column: span 1; grid-row: span 1; }
+    .skill-block[data-skill="C++"] { grid-column: span 1; grid-row: span 1; }
+    .skill-block[data-skill=Java] { grid-column: span 1; grid-row: span 2; }
+    .skill-block[data-skill=Python] { grid-column: span 2; grid-row: span 1; }
+    .skill-block[data-skill=ML] { grid-column: span 1; grid-row: span 2; }
+    .skill-block[data-skill="Full Stack"] { grid-column: span 2; grid-row: span 1; }
+    .skill-block[data-skill="MERN Stack"] { grid-column: span 2; grid-row: span 1; }
+    .resume-content { display: flex; gap: 24px; align-items: stretch; }
+    .resume-info,
+    .resume-builder {
+      flex: 1;
+      background: var(--glass);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .resume-builder { text-align: center; }
+    .resume-builder h3 { margin-top: 0; color: var(--accent2); }
+    /* REMOVED: .resume-content .btn { transition: transform .2s ease, box-shadow .3s ease; } */
+    /* REMOVED: .resume-content .btn:hover { transform: scale(1.05); } */
+    #contact.card.section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius);
+    }
+    .contact-prompt { font-family: monospace; color: var(--muted); margin: -10px 0 20px 0; height: 20px; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .contact-form label { display: flex; flex-direction: column; gap: 6px; }
+    .contact-form input,
+    .contact-form textarea {
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 8px;
+      color: inherit;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(80, 227, 255, 0.2);
+      border-color: var(--accent2);
+    }
+    .site-footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+      background: rgba(15, 23, 36, 0.5);
+      position: relative;
+      z-index: 10;
+    }
+    .footer-content h3 { margin: 0 0 24px; color: var(--accent2); font-weight: 600; }
+    .social-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+    }
+    .social-list a {
+      color: var(--accent2);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--glass);
+      border-radius: var(--radius);
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: background-color .2s ease, transform .2s ease;
+      width: 220px;
+      gap: 15px;
+    }
+    .social-list a:hover {
+      background-color: var(--glass);
+      transform: scale(1.05);
+    }
+    .social-list svg { width: 24px; height: 24px; flex-shrink: 0; }
+    .social-list span { font-weight: 600; }
+    @media (max-width:880px) {
+      .hero-inner { flex-direction: column; align-items: center; }
+      .profile-area { order: -1; transform: none; margin-bottom: 24px; }
+      .name-shine { transform: translateX(0); }
+      .hero-text { text-align: center; }
+      .hero-ctas { justify-content: center; }
+      .sc-btn { padding: 8px; }
+      .portrait-ring { --size: 200px; }
+    }
+    @media (max-width:768px) {
+      .education-ladder,
+      .resume-content { padding-bottom: 0; }
+      .resume-content { flex-direction: column; }
+      .education-step,
+      .education-step:nth-child(even) { width: 100%; margin-left: 0; margin-right: 0; }
+      .education-step:not(:first-child) { margin-top: 16px; }
+      .skills-container { grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(80px, auto); }
+      .skill-block[data-skill=JavaScript],
+      .skill-block[data-skill=Java],
+      .skill-block[data-skill=Python],
+      .skill-block[data-skill=ML],
+      .skill-block[data-skill="Full Stack"],
+      .skill-block[data-skill="MERN Stack"] { grid-column: span 1; grid-row: span 1; }
+      .skill-block[data-skill=JavaScript] { grid-column: span 2; }
+    }
+    @media (max-width:600px) {
+      .shortcuts { justify-content: center; }
+      .download { display: none; }
+      .hero-text h1 { font-size: 28px; }
+      .portrait-ring { --size: 160px; }
+    }
+    @media (max-width:480px) {
+      .shortcuts { gap: 6px; }
+      .sc-btn { padding: 6px 8px; font-size: .9rem; }
+      .skill-block svg { width: 30px; height: 30px; }
+      .hero-inner { padding: 15px; }
+    }
+    @keyframes rotateColors {
+      0% { transform: rotate(0deg) }
+      100% { transform: rotate(360deg) }
+    }
+    @keyframes spinBorder {
+      0% { transform: rotate(0deg) }
+      100% { transform: rotate(360deg) }
+    }
+    @keyframes shimmer {
+      0% { filter: brightness(.95) drop-shadow(0 0 0 transparent) }
+      50% { filter: brightness(1.18) drop-shadow(0 0 18px rgba(80, 227, 255, 0.12)) }
+      100% { filter: brightness(.95) }
+    }
+    @keyframes shapeDrawHide {
+      0% { stroke-dashoffset: 250; stroke-opacity: 0.2; } 
+      45% { stroke-dashoffset: 0; stroke-opacity: 1; }
+      55% { stroke-dashoffset: 0; stroke-opacity: 1; }
+      100% { stroke-dashoffset: 250; stroke-opacity: 0.2; }
+    }
+    @keyframes shapeDrawHideSmall {
+      0% { stroke-dashoffset: 60; stroke-opacity: 0.2; } 
+      45% { stroke-dashoffset: 0; stroke-opacity: 1; }
+      55% { stroke-dashoffset: 0; stroke-opacity: 1;}
+      100% { stroke-dashoffset: 60; stroke-opacity: 0.2; }
+    }
+
+    /* --- SHAPE COLORS & ANIMATIONS --- */
+    
+    /* MODIFIED: New gradient animations for each shape */
+    @keyframes gradientCycleCircle {
+      0% { stroke: url(#gradient-circle-1); }
+      50% { stroke: url(#gradient-circle-2); }
+      100% { stroke: url(#gradient-circle-1); }
+    }
+    @keyframes gradientCycleTriangle {
+      0% { stroke: url(#gradient-triangle-1); }
+      50% { stroke: url(#gradient-triangle-2); }
+      100% { stroke: url(#gradient-triangle-1); }
+    }
+    @keyframes gradientCycleSquare {
+      0% { stroke: url(#gradient-square-1); }
+      50% { stroke: url(#gradient-square-2); }
+      100% { stroke: url(#gradient-square-1); }
+    }
+
+    .shape-loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150px; 
+      width: 100%;
+      overflow: visible;
+      margin: 10px 0;
+      position: relative;
+    }
+    .shape-loader svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: block;
+      max-width: 750px; 
+      overflow: visible; 
+    }
+    /* Base style for all shapes */
+    .shape-loader path, .shape-loader polygon, .shape-loader rect, .shape-loader circle {
+        stroke-dasharray: 250;
+        stroke-dashoffset: 250;
+        stroke-width: 6px; 
+        /* MODIFIED: Neon effect (filter) removed */
+    }
+
+    /* Large Shapes - Individual Timings and Color Cycles */
+    .shape-loader circle {
+        animation: shapeDrawHide 3s infinite ease-in-out 0s, gradientCycleCircle 9s infinite linear 0s;
+    }
+    .shape-loader polygon { /* Triangle */
+        animation: shapeDrawHide 3s infinite ease-in-out 1s, gradientCycleTriangle 9s infinite linear -3s;
+    }
+    .shape-loader rect { /* Square/Rectangle */
+        animation: shapeDrawHide 3s infinite ease-in-out 2s, gradientCycleSquare 9s infinite linear -6s;
+    }
+
+    /* Inline Shapes - Individual Timings and Color Cycles */
+    .logo-shapes-inline {
+      display: inline-block;
+      height: 24px;
+      width: 60px; 
+      margin-left: 8px;
+      position: relative;
+      top: 2px;
+    }
+    .logo-shapes-inline svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: block;
+      overflow: visible;
+    }
+    .logo-shapes-inline circle,
+    .logo-shapes-inline polygon,
+    .logo-shapes-inline rect {
+      stroke-dasharray: 60; 
+      stroke-dashoffset: 60;
+      stroke-width: 2px;
+      /* MODIFIED: Neon effect (filter) removed */
+    }
+    .logo-shapes-inline circle { animation: shapeDrawHideSmall 3s infinite ease-in-out 0s, gradientCycleCircle 9s infinite linear 0s; }
+    .logo-shapes-inline polygon { animation: shapeDrawHideSmall 3s infinite ease-in-out 1s, gradientCycleTriangle 9s infinite linear -3s; } 
+    .logo-shapes-inline rect { animation: shapeDrawHideSmall 3s infinite ease-in-out 2s, gradientCycleSquare 9s infinite linear -6s; }
+
+    .header-shape-loader { display: none; } 
+    /* ... existing focus styles ... */
+    :focus-visible,
+    .user-is-tabbing .sc-btn:focus,
+    .user-is-tabbing .btn:focus {
+      outline: none;
+      /* Using the bright shadow for the focus ring as well */
+      box-shadow: 0 0 20px rgba(123, 97, 255, 0.8), 0 0 40px rgba(80, 227, 255, 0.5); 
+      transform: translateY(-2px) scale(1.02);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="main-bg-canvas"></canvas>
+  
+  <header class="site-header" id="header">
+    <div class="logo">
+      Gaurav Patidar<span class="logo-dot">.</span>
+      <span class="logo-shapes-inline">
+        <svg viewBox="0 0 60 24"> 
+          <defs>
+              <linearGradient id="gradient-circle-1-small" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent2)" /><stop offset="100%" stop-color="#ff9a7b" /></linearGradient>
+              <linearGradient id="gradient-circle-2-small" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff9a7b" /><stop offset="100%" stop-color="var(--accent1)" /></linearGradient>
+              <linearGradient id="gradient-triangle-1-small" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent1)" /><stop offset="100%" stop-color="var(--accent2)" /></linearGradient>
+              <linearGradient id="gradient-triangle-2-small" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent2)" /><stop offset="100%" stop-color="#ff9a7b" /></linearGradient>
+              <linearGradient id="gradient-square-1-small" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff9a7b" /><stop offset="100%" stop-color="var(--accent1)" /></linearGradient>
+              <linearGradient id="gradient-square-2-small" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent1)" /><stop offset="100%" stop-color="var(--accent2)" /></linearGradient>
+          </defs>
+          <circle cx="10" cy="12" r="6" stroke="url(#gradient-circle-1-small)" /> 
+          <polygon points="30,6 36,18 24,18" stroke="url(#gradient-triangle-1-small)" />
+          <rect x="44" y="6" width="12" height="12" stroke="url(#gradient-square-1-small)" />
+        </svg>
+      </span>
+    </div>
+    <nav class="shortcuts" aria-label="Quick navigation">
+      <button class="sc-btn" data-target="#about">About</button>
+      <button class="sc-btn" data-target="#education">Education</button>
+      <button class="sc-btn" data-target="#skills">Skills</button>
+      <button class="sc-btn" data-target="#resume">Resume</button>
+      <button class="sc-btn" data-target="#contact">Contact</button>
+      <a class="sc-btn download" href="gourav portfolio\gourav resume-1.pdf" download>Download Resume</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="hero" aria-label="Hero">
+      <div class="hero-inner">
+        <div class="profile-area">
+          <div class="name-shine">Gaurav Patidar</div>
+          <div class="portrait-ring">
+            <img src="profilepic.jpg" alt="Gaurav Patidar" class="portrait" />
+          </div>
+        </div>
+        <div class="hero-text">
+          <h1>Hello — I'm <span class="accent">Gaurav Patidar</span></h1>
+          <p class="type-bg" aria-hidden="true">
+            <span id="typewriter"></span>
+          </p>
+          <p class="hero-desc">
+            Real-world enthusiast building well-functioning, elegant UI — accessible, performant, and delightful.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#contact">Get in Touch</a>
+            <a class="btn primary" href="gourav resume-1.pdf" download>Download Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="shape-divider" aria-hidden="true" style="padding: 40px 0; text-align: center;">
+      <div class="shape-loader">
+        <svg viewBox="0 0 300 100">
+          <defs>
+              <linearGradient id="gradient-circle-1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent2)" /><stop offset="100%" stop-color="#ff9a7b" /></linearGradient>
+              <linearGradient id="gradient-circle-2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff9a7b" /><stop offset="100%" stop-color="var(--accent1)" /></linearGradient>
+              <linearGradient id="gradient-triangle-1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent1)" /><stop offset="100%" stop-color="var(--accent2)" /></linearGradient>
+              <linearGradient id="gradient-triangle-2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent2)" /><stop offset="100%" stop-color="#ff9a7b" /></linearGradient>
+              <linearGradient id="gradient-square-1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff9a7b" /><stop offset="100%" stop-color="var(--accent1)" /></linearGradient>
+              <linearGradient id="gradient-square-2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--accent1)" /><stop offset="100%" stop-color="var(--accent2)" /></linearGradient>
+          </defs> 
+          <circle cx="55" cy="50" r="30" stroke="url(#gradient-circle-1)" /> 
+          <polygon points="150,20 180,80 120,80" stroke="url(#gradient-triangle-1)" />
+          <rect x="220" y="20" width="60" height="60" stroke="url(#gradient-square-1)" />
+        </svg>
+      </div>
+    </section>
+    <section id="about" class="card section">
+      <h2>About Me</h2>
+      <p>I'm Gaurav Patidar — front-end engineer who loves polished interactions, crisp UI, and clean code. I specialize in creating dynamic and responsive web applications with a strong focus on user experience and performance.</p>
+    </section>
+    <section id="education" class="card section">
+      <h2>Education</h2>
+      <div class="education-ladder">
+        <div class="education-step">
+          <h3>Masters (MCA)</h3>
+          <p>National Institute Of Technology, Raipur</p>
+          <p class="year">7.4 CGPA</p>
+        </div>
+        <div class="education-step">
+          <h3>Bachelors (B.Sc)</h3>
+          <p>Sanskar College, DAVV University, Indore</p>
+          <p class="year">8.7 Pointer</p>
+        </div>
+        <div class="education-step">
+          <h3>12th Standard</h3>
+          <p>Gaytri Shiksha Niketan Hr Sec School, Khargone</p>
+          <p class="year">83%</p>
+        </div>
+        <div class="education-step">
+          <h3>10th Standard</h3>
+          <p>The Creative Public School, Khargone</p>
+          <p class="year">6.0 CGPA</p>
+        </div>
+      </div>
+    </section>
+    <section id="skills" class="card section">
+      <h2>Skills</h2>
+      <div class="skills-container">
+        <div class="skill-block" data-skill="HTML">
+          <div class="skill-icon">
+            <div class="code-line"></div>
+            <div class="code-line"></div>
+            <div class="code-line"></div>
+          </div>
+          <span>HTML</span>
+        </div>
+        <div class="skill-block" data-skill="CSS">
+          <div class="skill-icon"></div>
+          <span>CSS</span>
+        </div>
+        <div class="skill-block" data-skill="JavaScript">
+          <div class="skill-icon">
+             <div class="binary-bit"></div>
+          </div>
+          <span>JavaScript</span>
+        </div>
+        <div class="skill-block" data-skill="C">
+          <div class="skill-icon"></div>
+          <span>C</span>
+        </div>
+        <div class="skill-block" data-skill="C++">
+          <div class="skill-icon"></div>
+          <span>C++</span>
+        </div>
+        <div class="skill-block" data-skill="Java">
+          <div class="skill-icon"></div>
+          <span>Java</span>
+        </div>
+        <div class="skill-block" data-skill="Python">
+          <div class="skill-icon"></div>
+          <span>Python</span>
+        </div>
+        <div class="skill-block" data-skill="ML">
+          <div class="skill-icon">
+             <div class="skill-ring">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+             </div>
+          </div>
+          <span>ML</span>
+        </div>
+        <div class="skill-block" data-skill="Full Stack">
+          <div class="skill-icon">
+             <div class="layer-1"></div>
+             <div class="layer-2"></div>
+             <div class="layer-3"></div>
+          </div>
+          <span>Full Stack</span>
+        </div>
+        <div class="skill-block" data-skill="MERN Stack">
+          <div class="skill-icon"></div>
+          <span>MERN Stack</span>
+        </div>
+      </div>
+    </section>
+    <section id="resume" class="card section">
+      <h2>My Resume</h2>
+      <div class="resume-content">
+        <div class="resume-info">
+          <p>You can view or download my resume for a more detailed look at my skills, experience, and projects.</p>
+          <a class="btn primary" href="gourav resume-1.pdf" download>Download PDF</a>
+        </div>
+        <div class="resume-builder">
+          <h3>Resume Builder</h3>
+          <p>This resume was built using a custom tool.</p>
+          <a class="btn outline" href="#" target="_blank">View on GitHub</a>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="card section">
+      <h2>Let's Connect</h2>
+      <p class="contact-prompt">> What's next?</p>
+      <form class="contact-form" id="contact-form">
+        <label><span>Name</span><input type="text" name="name" required></label>
+        <label><span>Email</span><input type="email" name="email" required></label>
+        <label><span>Message</span><textarea name="message" rows="4" required></textarea></label>
+        <button class="btn primary" type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <h3>Gaurav Patidar</h3>
+      <ul class="social-list">
+        <li>
+          <a href="https://www.linkedin.com/in/gourav-patidar1107?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/9575929021" target="_blank" aria-label="WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.46 3.48 1.32 4.95L2 22l5.25-1.38c1.41.79 3.02 1.22 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm4.88 11.93c-.27.75-1.53 1.39-2.11 1.49-.58.1-1.36.19-2.1-.09-.75-.28-1.74-.63-2.93-1.63-1.19-1-2.16-2.2-2.43-2.96-.28-.75-.02-1.32.23-1.78.25-.46.53-.78.78-1.03.25-.25.53-.41.7-.58.17-.17.33-.25.5-.25.17 0 .33.08.49.25.17.17.58.75.66.83.08.08.17.17.25.25.08.08.17.17.08.33-.08.17-.17.25-.33.41-.17.17-.25.25-.41.5-.17.17-.33.33-.25.5.08.17.41.75.83 1.16.41.41.83.66 1.16.83.17.08.33.08.5-.17.17-.17.25-.33.41-.41.17-.17.25-.25.41-.33.17-.08.33-.08.5.08.17.17.75.58.83.66.08.08.17.17.17.25.08.17-.08.33-.17.41z"/></svg>
+            <span>WhatsApp</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/" target="_blank" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            <span>GitHub</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/your-handle" target="_blank" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.793 4.649-.69.188-1.442.238-2.22.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.588-7.52 2.588-.49 0-.974-.028-1.45-.086 2.685 1.725 5.872 2.73 9.34 2.73 10.795 0 17.512-8.586 17.15-17.553.08-.182.16-.364.24-.541z"/></svg>
+            <span>Twitter</span>
+          </a>
+        </li>
+      </ul>
+      <p>&copy; <span id="year">2024</span> Gaurav Patidar. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // --- Helper Functions ---
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => document.querySelectorAll(selector);
+
+      // --- Feature Setup Functions ---
+
+      /**
+       * Handles smooth scrolling for navigation buttons.
+       */
+      function setupSmoothScroll() {
+        $$('.sc-btn[data-target]').forEach(button => {
+          button.addEventListener('click', () => {
+            const targetId = button.dataset.target;
+            const targetElement = $(targetId);
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        });
+      }
+
+      /**
+       * Observes sections to apply a 'visible' class for fade-in animations.
+       */
+      function setupScrollObserver() {
+        const sections = $$('.card.section');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+      }
+
+      /**
+       * Sets up the typewriter effect for the hero section.
+       */
+      function setupTypewriter() {
+        const typewriterEl = $('#typewriter');
+        if (!typewriterEl) return;
+        
+        const phrases = [
+          "Front-end Engineer",
+          "Creative Web Developer",
+          "UI/UX Enthusiast",
+          "Performance Optimizer"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+          const currentPhrase = phrases[phraseIndex];
+          let text = '';
+          if (isDeleting) {
+            text = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+          } else {
+            text = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+          }
+          typewriterEl.textContent = text;
+          
+          let typeSpeed = isDeleting ? 75 : 150;
+
+          if (!isDeleting && charIndex === currentPhrase.length) {
+            typeSpeed = 2000;
+            isDeleting = true;
+          } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            typeSpeed = 500;
+          }
+
+          setTimeout(type, typeSpeed);
+        }
+        type();
+      }
+
+      /**
+       * Handles form submission for the contact form.
+       */
+      function setupContactForm() {
+        const form = $('#contact-form');
+        const prompt = $('.contact-prompt');
+        if (!form || !prompt) return;
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const originalText = prompt.textContent;
+          prompt.textContent = "Message Sent! Thank you.";
+          form.reset();
+          setTimeout(() => {
+            prompt.textContent = originalText;
+          }, 4000);
+        });
+      }
+      
+      /**
+       * Manages keyboard vs. mouse focus for accessibility outlines.
+       */
+      function setupFocusManagement() {
+        document.body.addEventListener('mousedown', () => {
+          document.body.classList.remove('user-is-tabbing');
+        });
+        document.body.addEventListener('keydown', (e) => {
+          if (e.key === 'Tab') {
+            document.body.classList.add('user-is-tabbing');
+          }
+        });
+      }
+
+      /**
+       * Initializes the animated canvas background with shooting stars (Meteors) 
+       * and adds **Blinking Stars**.
+       */
+      function setupCanvasBackground() {
+        const canvas = $('#main-bg-canvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let meteors = [];
+        let stars = []; // Array for blinking stars
+        let animationFrameId;
+        const STAR_COUNT = 150; // Number of fixed stars
+
+        const setupCanvas = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+
+        const createMeteors = () => {
+          meteors = [];
+          const meteorCount = Math.floor(canvas.width / 40);
+          for (let i = 0; i < meteorCount; i++) {
+            meteors.push({
+              x: Math.random() * canvas.width,
+              y: -50,
+              length: Math.random() * 150 + 50,
+              vx: (Math.random() - 0.5) * 1,
+              vy: Math.random() * 1 + 0.5
+            });
+          }
+        };
+
+        // NEW: Function to create stars
+        const createStars = () => {
+          stars = [];
+          for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push({
+              x: Math.random() * canvas.width,
+              y: Math.random() * canvas.height,
+              radius: Math.random() * 1.5 + 0.5,
+              opacity: Math.random(), // Initial random opacity
+              blinkSpeed: Math.random() * 0.02 + 0.01, // Speed of opacity change
+              isIncreasing: Math.random() > 0.5 // Direction of blinking
+            });
+          }
+        };
+
+        const animate = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // 1. Draw and update Blinking Stars
+          stars.forEach(star => {
+            // Update opacity for blinking effect
+            if (star.isIncreasing) {
+              star.opacity += star.blinkSpeed;
+              if (star.opacity > 1) {
+                star.opacity = 1;
+                star.isIncreasing = false;
+              }
+            } else {
+              star.opacity -= star.blinkSpeed;
+              if (star.opacity < 0.1) {
+                star.opacity = 0.1;
+                star.isIncreasing = true;
+                // Add a random speed change to vary the blink rhythm
+                star.blinkSpeed = Math.random() * 0.02 + 0.01; 
+              }
+            }
+
+            // Draw the star
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2, false);
+            // Use var(--accent2) color with dynamic opacity
+            ctx.fillStyle = `rgba(80, 227, 255, ${star.opacity})`;
+            ctx.fill();
+          });
+          
+          // 2. Draw and update Meteors (Shooting Stars)
+          meteors.forEach(meteor => {
+            const gradient = ctx.createLinearGradient(meteor.x, meteor.y, meteor.x + meteor.length * meteor.vx, meteor.y + meteor.length * meteor.vy);
+            // Swapped gradient stops to reverse the meteor's appearance
+            gradient.addColorStop(0, 'rgba(80, 227, 255, 0)');
+            gradient.addColorStop(1, 'rgba(80, 227, 255, 0.6)');
+            
+            ctx.beginPath();
+            ctx.moveTo(meteor.x, meteor.y);
+            ctx.lineTo(meteor.x + meteor.length * meteor.vx, meteor.y + meteor.length * meteor.vy);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            
+            meteor.x += meteor.vx;
+            meteor.y += meteor.vy;
+
+            if (meteor.y > window.innerHeight + 50 || meteor.x < -50 || meteor.x > window.innerWidth + 50) {
+              Object.assign(meteor, {
+                x: Math.random() * window.innerWidth,
+                y: -50,
+                length: Math.random() * 150 + 50,
+                vx: (Math.random() - 0.5) * 1,
+                vy: Math.random() * 1 + 0.5
+              });
+            }
+          });
+
+          animationFrameId = requestAnimationFrame(animate);
+        };
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            setupCanvas();
+            createMeteors();
+            createStars(); // Re-create stars on resize
+            animate();
+          }, 250);
+        });
+
+        setupCanvas();
+        createMeteors();
+        createStars(); // Initialize stars
+        animate();
+      }
+
+      /**
+       * Initializes and positions the hyper-realistic planets in the background.
+       * (FUNCTION REMOVED)
+       */
+      
+      /**
+       * Updates the copyright year in the footer.
+       */
+       function updateFooterYear() {
+        const yearEl = $('#year');
+        if (yearEl) {
+            yearEl.textContent = new Date().getFullYear();
+        }
+       }
+
+      // --- Initialize All Functions ---
+      setupSmoothScroll();
+      setupScrollObserver();
+      setupTypewriter();
+      setupContactForm();
+      setupFocusManagement();
+      setupCanvasBackground(); // Now includes the meteor shower and blinking stars
+      updateFooterYear();
+      // setupDragonCursor(); // Removed
+      // setupPlanets(); // Removed
+    });
+  </script>
+</body>
+</html>
