@@ -66,7 +66,7 @@
       align-items: center; 
     }
     .logo-dot { color: var(--accent2); margin-left: 6px; }
-    .shortcuts { display: flx; gap: 5px; align-items: center; flex-wrap: wrap; }
+    .shortcuts { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     .sc-btn,
     .btn {
       position: relative;
@@ -118,7 +118,6 @@
       background: linear-gradient(90deg, var(--accent1), var(--accent2));
       color: #021226;
       border: none;
-      align-items: center;
     }
     .btn.outline { background: transparent; border: 1px solid rgba(255, 255, 255, 0.08); }
     /* ... rest of existing CSS ... */
@@ -1130,7 +1129,7 @@
       <button class="sc-btn" data-target="#skills">Skills</button>
       <button class="sc-btn" data-target="#resume">Resume</button>
       <button class="sc-btn" data-target="#contact">Contact</button>
-      <a class="sc-btn download" href="gourav portfolio\gourav resume-1.pdf" download>Download Resume</a>
+      <a class="sc-btn download" href="Gourav resume.pdf" download>Download Resume</a>
     </nav>
   </header>
   <main>
@@ -1152,7 +1151,7 @@
           </p>
           <div class="hero-ctas">
             <a class="btn primary" href="#contact">Get in Touch</a>
-            <a class="btn primary" href="gourav resume-1.pdf" download>Download Resume</a>
+            <a class="btn primary" href="Gourav resume.pdf" download>Download Resume</a>
           </div>
         </div>
       </div>
@@ -1188,7 +1187,7 @@
         </div>
         <div class="education-step">
           <h3>Bachelors (B.Sc)</h3>
-          <p>Sanskar College, DAVV University, Indore</p>
+          <p>Sanskar College of professional studies , DAVV University, Indore</p>
           <p class="year">8.7 Pointer</p>
         </div>
         <div class="education-step">
@@ -1199,7 +1198,7 @@
         <div class="education-step">
           <h3>10th Standard</h3>
           <p>The Creative Public School, Khargone</p>
-          <p class="year">6.0 CGPA</p>
+          <p class="year">68.6%</p>
         </div>
       </div>
     </section>
@@ -1270,12 +1269,44 @@
       <div class="resume-content">
         <div class="resume-info">
           <p>You can view or download my resume for a more detailed look at my skills, experience, and projects.</p>
-          <a class="btn primary" href="gourav resume-1.pdf" download>Download PDF</a>
+          <a class="btn primary" href="Gourav resume.pdf" download>Download PDF</a>
         </div>
         <div class="resume-builder">
           <h3>Resume Builder</h3>
-          <p>This resume was built using a custom tool.</p>
-          <a class="btn outline" href="https://www.resumebuilder.com" target="_blank">Visit the site</a>
+           <a href="https://www.overleaf.com/project/69525d894d1938e26c92a2e3" target="_blank">
+  <button class="light-neon-btn">Visit Site</button>
+</a>
+
+<style>
+.light-neon-btn {
+  padding: 10px 26px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #00c6ff;
+
+  /* Light transparent background */
+  background: rgba(0, 198, 255, 0.08);
+
+  border: 1px solid rgba(0, 198, 255, 0.5);
+  border-radius: 6px;
+  cursor: pointer;
+
+  /* Very soft neon glow */
+  box-shadow: 0 0 6px rgba(0, 198, 255, 0.2);
+
+  transition: all 0.3s ease;
+}
+
+.light-neon-btn:hover {
+  color: #ffffff;
+
+  /* Slightly more visible on hover */
+  background: rgba(0, 198, 255, 0.15);
+
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.4);
+  border-color: rgba(0, 198, 255, 0.8);
+}
+</style>
         </div>
       </div>
     </section>
@@ -1302,20 +1333,20 @@
         </li>
         <li>
           <a href="https://wa.me/9575929021" target="_blank" aria-label="WhatsApp">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2.003c-5.52 0-9.997 4.477-9.997 9.997 0 1.76.46 3.48 1.337 5.007L2 22l5.146-1.35a9.93 9.93 0 004.894 1.287h.004c5.52 0 9.997-4.477 9.997-9.997 0-2.653-1.033-5.148-2.91-7.025A9.94 9.94 0 0012.04 2.003zm0 18.09a8.06 8.06 0 01-4.112-1.13l-.295-.175-3.054.801.815-2.98-.192-.306a8.04 8.04 0 1114.838-4.303 8.06 8.06 0 01-8.005 8.093zm4.42-5.99c-.242-.121-1.434-.707-1.657-.787-.223-.08-.385-.121-.547.121-.162.242-.627.787-.77.949-.142.162-.283.182-.525.061-.242-.121-1.022-.377-1.947-1.202-.72-.642-1.206-1.435-1.348-1.677-.142-.242-.015-.373.106-.494.108-.108.242-.283.364-.425.121-.142.162-.242.242-.404.081-.162.041-.303-.02-.424-.061-.121-.547-1.313-.749-1.798-.198-.476-.399-.411-.547-.419l-.465-.008c-.162 0-.424.061-.647.303-.223.242-.849.829-.849 2.021 0 1.192.87 2.344.991 2.506.121.162 1.712 2.615 4.15 3.664.58.25 1.032.399 1.384.51.582.185 1.112.159 1.531.096.467-.07 1.434-.586 1.637-1.152.202-.566.202-1.051.142-1.152-.061-.101-.223-.162-.465-.283z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.46 3.48 1.32 4.95L2 22l5.25-1.38c1.41.79 3.02 1.22 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm4.88 11.93c-.27.75-1.53 1.39-2.11 1.49-.58.1-1.36.19-2.1-.09-.75-.28-1.74-.63-2.93-1.63-1.19-1-2.16-2.2-2.43-2.96-.28-.75-.02-1.32.23-1.78.25-.46.53-.78.78-1.03.25-.25.53-.41.7-.58.17-.17.33-.25.5-.25.17 0 .33.08.49.25.17.17.58.75.66.83.08.08.17.17.25.25.08.08.17.17.08.33-.08.17-.17.25-.33.41-.17.17-.25.25-.41.5-.17.17-.33.33-.25.5.08.17.41.75.83 1.16.41.41.83.66 1.16.83.17.08.33.08.5-.17.17-.17.25-.33.41-.41.17-.17.25-.25.41-.33.17-.08.33-.08.5.08.17.17.75.58.83.66.08.08.17.17.17.25.08.17-.08.33-.17.41z"/></svg>
             <span>WhatsApp</span>
           </a>
         </li>
         <li>
-          <a href="https://github.com/its1107gourav" target="_blank" aria-label="GitHub">
+          <a href="https://github.com/" target="_blank" aria-label="GitHub">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             <span>GitHub</span>
           </a>
         </li>
         <li>
-          <a href="https://instagram.com/itz_gourav_117" target="_blank" aria-label="instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.75a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/></svg>
-            <span>instagram</span>
+          <a href="https://twitter.com/your-handle" target="_blank" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.793 4.649-.69.188-1.442.238-2.22.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.588-7.52 2.588-.49 0-.974-.028-1.45-.086 2.685 1.725 5.872 2.73 9.34 2.73 10.795 0 17.512-8.586 17.15-17.553.08-.182.16-.364.24-.541z"/></svg>
+            <span>Twitter</span>
           </a>
         </li>
       </ul>
@@ -1595,6 +1626,4 @@
     });
   </script>
 </body>
-
 </html>
-
